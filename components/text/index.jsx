@@ -19,7 +19,5 @@ export const Value = ({ value, size = "medium" }) => {
   };
   const currentSize = sizes[size] ?? sizes[defaultValueSize];
 
-  return (
-    <TextBold fontSize={currentSize}>{value}</TextBold>
-  )
+  return <TextBold fontSize={currentSize}>{value}</TextBold>;
 };

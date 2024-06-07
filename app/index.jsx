@@ -5,8 +5,6 @@ import { PrimaryButton } from "../components/button";
 import { LayoutCenter } from "../components/container";
 import { useNavigation } from "expo-router";
 
-
-
 export default function App() {
   const navigation = useNavigation();
   const goToHome = () => {
@@ -15,7 +13,7 @@ export default function App() {
   return (
     <LayoutCenter
       style={{
-        paddingTop: 32,
+        padding: 32,
         justifyContent: "space-between",
         flex: 1,
       }}
