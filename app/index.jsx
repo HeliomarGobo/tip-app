@@ -20,10 +20,10 @@ export default function App() {
     >
       <LayoutCenter>
         <AppName />
-        <Subtitle text="Calcule a Gorjeta e Divida a conta" />
+        <Subtitle text="Calculate the Tip and Split the Bill" />
       </LayoutCenter>
       <Image source={Icon} />
-      <PrimaryButton label="Calcular" onPress={goToHome} />
+      <PrimaryButton label="Calculate" onPress={goToHome} />
     </LayoutCenter>
   );
 }

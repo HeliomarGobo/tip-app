@@ -84,7 +84,7 @@ export const Drawer = ({
 const DrawerValue = ({ visible, onClose, value, onValueChange }) => {
   return (
     <Drawer visible={visible} onBackdropPress={onClose}>
-      <Title text="Total da Conta" />
+      <Title text="Total bill" />
       <Value
         value={value}
         size="large"
@@ -141,7 +141,7 @@ const DrawerPayment = ({
         <Title text="Result" />
         <Value value={totalValue} size="medium" />
         <LayoutLeft style={{ gap: 32,}}>
-          <Title text="Valor por Pessoa:" />
+          <Title text="Value per person:" />
 
           {payments.map((item, index) => {
             return (
@@ -158,9 +158,9 @@ const DrawerPayment = ({
         </LayoutLeft>
       </LayoutCenter>
       <LayoutCenter style={{ gap: 16, marginBottom: 100 }}>
-        <Title text="Valor pendente" />
+        <Title text="Pending amount" />
         <PrimaryButton
-          label={pendingPayments > 0 ? formatMoney(pendingPayments) : "Finalizado"}
+          label={pendingPayments > 0 ? formatMoney(pendingPayments) : "Pay"}
           onPress={onClose}
         />
       </LayoutCenter>

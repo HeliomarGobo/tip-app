@@ -89,7 +89,7 @@ export default function Home() {
               />
             </LayoutLeft>
 
-            <Title text="Pessoas na Mesa"/>
+            <Title text="People at Table"/>
             <View
               style={{
                 flexDirection: "row",
