@@ -1,3 +1,4 @@
+import { formatMoney } from "../../utils/formatMoney";
 import { TextBold, TextRegular } from "./styles";
 
 export const AppName = () => {
@@ -11,7 +12,13 @@ export const Subtitle = ({ text, variant }) => {
   return <TextRegular variant={variant}>{text}</TextRegular>;
 };
 const defaultValueSize = "medium";
-export const Value = ({ value, size = "medium" }) => {
+export const Value = ({
+  value,
+  size = defaultValueSize,
+  editable,
+  onValueChange,
+  paid,
+}) => {
   const sizes = {
     large: 64,
     medium: 32,
@@ -19,5 +26,18 @@ export const Value = ({ value, size = "medium" }) => {
   };
   const currentSize = sizes[size] ?? sizes[defaultValueSize];
 
-  return <TextBold fontSize={currentSize}>{value}</TextBold>;
+  const valueToShow = editable ? value : formatMoney(value);
+  return (
+    <TextBold
+      fontSize={currentSize}
+      editable={editable}
+      paid={paid}
+      keyboardType="numeric"
+      onChangeText={(newText) => {
+        onValueChange(parseFloat(newText));
+      }}
+    >
+      {valueToShow}
+    </TextBold>
+  );
 };

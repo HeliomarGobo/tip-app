@@ -11,13 +11,21 @@ import { View, FlatList, Text } from "react-native";
 import { TextBold } from "@/components/text/styles";
 import { useState } from "react";
 import { Drawer } from "../components/drawer";
+Drawer.DrawerValue;
 
 export default function Home() {
+  const [value, setValue] = useState(0);
   const [selectedTipOption, setSelectedTipOption] = useState();
   const [peopleAtTable, setPeopleAtTable] = useState(1);
   const [valueDrawerVisible, setValueDrawerVisible] = useState(false);
+  const [paymentDrawerVisible, setPaymentDrawerVisible] = useState(false);
+
   const toggleValueDrawer = () => {
     setValueDrawerVisible((prevValue) => !prevValue);
+  };
+
+  const togglePaymentDrawer = () => {
+    setPaymentDrawerVisible((prevValue) => !prevValue);
   };
   const navigation = useNavigation();
 
@@ -45,7 +53,7 @@ export default function Home() {
           <Title text="Payment" />
 
           <Card
-            title="R$523,00"
+            title={value}
             subtitle="Bill Total"
             onPress={toggleValueDrawer}
           />
@@ -81,13 +89,15 @@ export default function Home() {
               />
             </LayoutLeft>
 
-            <Title text="Pessoas na Mesa" />
+            <Title text="Pessoas na Mesa"/>
             <View
               style={{
                 flexDirection: "row",
                 alignSelf: "stretch",
                 justifyContent: "space-between",
                 alignItems: "center",
+                marginTop: 110,
+                
               }}
             >
               <CircleButton
@@ -108,12 +118,23 @@ export default function Home() {
             </View>
           </LayoutLeft>
         </LayoutCenter>
-        <PrimaryButton label="Return" onPress={goBack} />
+        <PrimaryButton label="Calculate" onPress={togglePaymentDrawer} />
       </LayoutCenter>
-      <Drawer visible={valueDrawerVisible} onBackdropPress={toggleValueDrawer}>
-        <Title text="Total da Conta" />
-        <PrimaryButton label="Return" onPress={toggleValueDrawer} />
-      </Drawer>
+      <Drawer.Value
+        value={value}
+        visible={valueDrawerVisible}
+        onClose={toggleValueDrawer}
+        onValueChange={(newValue) => {
+          setValue(newValue);
+        }}
+      />
+      <Drawer.Payment
+        value={value}
+        visible={paymentDrawerVisible}
+        onClose={togglePaymentDrawer}
+        tipOption={selectedTipOption}
+        peopleAtTable={peopleAtTable}
+      />
     </View>
   );
 }
