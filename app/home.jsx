@@ -11,10 +11,10 @@ import { View, FlatList, Text } from "react-native";
 import { TextBold } from "@/components/text/styles";
 import { useState } from "react";
 import { Drawer } from "../components/drawer";
-Drawer.DrawerValue;
+import { useValueContext } from "../providers/valueProvider";
 
 export default function Home() {
-  const [value, setValue] = useState(0);
+  const { value, setValue } = useValueContext();
   const [selectedTipOption, setSelectedTipOption] = useState();
   const [peopleAtTable, setPeopleAtTable] = useState(1);
   const [valueDrawerVisible, setValueDrawerVisible] = useState(false);
@@ -53,7 +53,6 @@ export default function Home() {
           <Title text="Payment" />
 
           <Card
-            title={value}
             subtitle="Bill Total"
             onPress={toggleValueDrawer}
           />
@@ -89,7 +88,7 @@ export default function Home() {
               />
             </LayoutLeft>
 
-            <Title text="People at Table"/>
+            <Title text="People at Table" />
             <View
               style={{
                 flexDirection: "row",
@@ -97,7 +96,6 @@ export default function Home() {
                 justifyContent: "space-between",
                 alignItems: "center",
                 marginTop: 110,
-                
               }}
             >
               <CircleButton
@@ -121,15 +119,10 @@ export default function Home() {
         <PrimaryButton label="Calculate" onPress={togglePaymentDrawer} />
       </LayoutCenter>
       <Drawer.Value
-        value={value}
         visible={valueDrawerVisible}
         onClose={toggleValueDrawer}
-        onValueChange={(newValue) => {
-          setValue(newValue);
-        }}
       />
       <Drawer.Payment
-        value={value}
         visible={paymentDrawerVisible}
         onClose={togglePaymentDrawer}
         tipOption={selectedTipOption}

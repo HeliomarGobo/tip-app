@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import { PaymentCard } from "../card";
 import { LayoutCenter, LayoutLeft } from "../container";
 import { formatMoney } from "@/utils/formatMoney";
+import { useValueContext } from "@/providers/valueProvider";
 
 const DRAWER_PADDING = 32;
 
@@ -37,7 +38,7 @@ export const Drawer = ({
               position: "absolute",
               width,
               height,
-              backgroundColor: "000000",
+              backgroundColor: "#000000",
               opacity: 0.7,
             }}
           >
@@ -81,28 +82,20 @@ export const Drawer = ({
   );
 };
 
-const DrawerValue = ({ visible, onClose, value, onValueChange }) => {
+const DrawerValue = ({ visible, onClose }) => {
+  const { value, setValue } = useValueContext();
   return (
     <Drawer visible={visible} onBackdropPress={onClose}>
       <Title text="Total bill" />
-      <Value
-        value={value}
-        size="large"
-        editable
-        onValueChange={onValueChange}
-      />
+      <Value value={value} size="large" editable onValueChange={setValue} />
 
       <PrimaryButton label="Edit Value" onPress={onClose} />
     </Drawer>
   );
 };
-const DrawerPayment = ({
-  visible,
-  onClose,
-  value,
-  tipOption,
-  peopleAtTable,
-}) => {
+const DrawerPayment = ({ visible, onClose, tipOption, peopleAtTable }) => {
+  const { value } = useValueContext();
+
   const totalValue = tipOption ? value + (value * tipOption) / 100 : value;
 
   const valueByPerson = totalValue / peopleAtTable;
@@ -140,7 +133,7 @@ const DrawerPayment = ({
       <LayoutCenter style={{ gap: 32 }}>
         <Title text="Result" />
         <Value value={totalValue} size="medium" />
-        <LayoutLeft style={{ gap: 32,}}>
+        <LayoutLeft style={{ gap: 32 }}>
           <Title text="Value per person:" />
 
           {payments.map((item, index) => {
